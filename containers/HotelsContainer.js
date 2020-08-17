@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
 import Api from '../utils/Api';
+
+import Hotels from '../components/Hotels';
 
 
 class HotelsContainer extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hotels: []
+        }
+    }
+
     componentDidMount() {
-        Api.getCityHotels('Paris').then(json => console.log(json));
+        Api.getCityHotels('paris')
+            .then(json => this.setState({ hotels: json.hotels }));
     }
 
     render() {
         return (
-            <Text>HotelsContainer</Text>
+            <Hotels hotels={this.state.hotels} />
         );
     }
 }
