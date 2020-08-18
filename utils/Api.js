@@ -8,6 +8,13 @@ class Api {
             .then(res => res.json())
             .then(json => ({ hotels: json.results }));
     }    
+    
+    getHotelDetails(hotel) {
+        const url = `${host}/api/hotels/${hotel}`;
+        return fetch(url)
+            .then(res => res.json())
+            .then(json => json.result);
+    }
 }
 
 export default new Api();

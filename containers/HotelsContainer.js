@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Api from '../utils/Api';
 
-import Hotels from '../components/Hotels';
+import Hotels from '../components/core/Hotels';
 
 
 class HotelsContainer extends Component {
