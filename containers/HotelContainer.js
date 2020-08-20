@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Api from '../utils/Api';
 
 import Hotel from '../components/hotel/Hotel';
@@ -14,18 +14,38 @@ class HotelContainer extends Component {
             details: {}
         }
     }
-    componentDidMount() {
+    async componentDidMount() {
         const id = this.props.match.params.id;
-        Api.getHotelDetails(id)
-            .then(details => this.setState({ details }));
+        const details = await Api.getHotelDetails(id);
+        this.setState({ details });
+    }
+
+    renderHotel() {
+        const { details } = this.state;
+
+        if (Object.keys(details).length === 0) {
+            return <ActivityIndicator />
+        }
+
+        return <Hotel {...details} />
     }
 
     render() {
-        const { details } = this.state;
+        const { details } = this.state;        
+        // console.log("ctners/HotelContainer details", details);        
 
-        // console.log(details);
-        return <View><Hotel details={details} /></View>
+        return (
+            <View style={styles.container}>
+                {this.renderHotel()}
+            </View>
+        );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginVertical: 35
+    }
+});
 
 export default HotelContainer;

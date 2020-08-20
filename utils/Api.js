@@ -2,18 +2,18 @@ import Config from "../Config";
 const { host } = Config;
 
 class Api {
-    getCityHotels(city) {
+    async getCityHotels(city) {
         const url = `${host}/api/hotels/city/${city}`;
-        return fetch(url)
-            .then(res => res.json())
-            .then(json => ({ hotels: json.results }));
-    }    
+        const res = await fetch(url);
+        const json = await res.json();
+        return ({ hotels: json.results })
+    }
     
-    getHotelDetails(hotel) {
+    async getHotelDetails(hotel) {
         const url = `${host}/api/hotels/${hotel}`;
-        return fetch(url)
-            .then(res => res.json())
-            .then(json => json.result);
+        const res = await fetch(url);
+        const json = await res.json();        
+        return json.result;
     }
 }
 

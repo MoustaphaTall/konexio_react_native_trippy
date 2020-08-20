@@ -13,12 +13,12 @@ class HotelsContainer extends Component {
         }
     }
 
-    componentDidMount() {
-        Api.getCityHotels('paris')
-            .then(json => this.setState({ hotels: json.hotels }));
+    async componentDidMount() {
+        const json = await Api.getCityHotels('paris');
+        this.setState({ hotels: json.hotels });             
     }
 
-    render() {
+    render() {        
         return (
             <Hotels hotels={this.state.hotels} />
         );
